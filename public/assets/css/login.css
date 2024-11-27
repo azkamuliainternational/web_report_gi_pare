@@ -1,0 +1,237 @@
+*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #399FAE;
+   
+}
+.background{
+
+   
+    /* width:100%; 
+    height: 100%; */
+    width: 50vh; 
+    height: 100vh;
+    position: absolute;
+    transform: translate(-50%,-50%);  
+    left: 50%;
+     top: 50%; 
+    /* background-size: contain; */
+    overflow: hidden;
+    border-radius:10px ;
+    border:2px solid gray;
+    /* background-color: white; */
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    background: url(/assets/img/cafe.jpg);
+    background-size: 100% 100%; 
+
+}
+.background .shape{
+    /* background: url(/assets/img/logo128.png) */
+    /* height: 40%;
+    width: 80%;
+    position: absolute;
+    border-radius: 50%;
+    transform: translate(-50%,0%); */
+
+}
+
+.background .image{
+    /* background: url(/assets/img/logo128.png)   no-repeat;
+    width:30vh;
+    height:30vh;
+    display:block;
+    transform: translate(50%,0%); 
+    top:10%;
+    left:-10%;
+    position: relative;
+    background-size: contain; */
+
+}
+.background .judul{
+    /* background: url(/assets/img/logo128.png) */
+    font-family: 'Alfa Slab One';
+    font-size:4vh;
+    position: relative;
+    top:10%;
+    width:50vh;
+    color:orange;
+    display:flex;
+    justify-content: center;
+
+
+}
+
+.shape:first-child{
+    background: linear-gradient(
+        #1845ad,
+        #23a2f6
+    );
+    left: -80px;
+    top: -80px;
+}
+.shape:last-child{
+    background: linear-gradient(
+        to right,
+        #ff512f,
+        #f09819
+    );
+    right: -30px;
+    bottom: -80px;
+}
+form{
+
+
+    
+    height: 30vh;
+    width: 45vh;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    left: 50%;
+    top: 80%; 
+
+    transform: translate(-50%,-50%);
+ 
+    
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 2vh 5vh;
+    overflow: hidden;
+}
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+
+}
+form h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+label{
+    display: block;
+    margin-top: 1vh;
+    font-size: 2vh;
+    font-weight: 500;
+    height: 3vh; 
+}
+input[type=password],input[type=text] {
+    display: block;
+    height: 4vh;  
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 1vh 5px; 
+    margin-top: 8px;
+    font-size: 2vh;
+    font-weight: 300;
+    position:relative;
+}
+::placeholder{
+    color: #e5e5e5;
+}
+/* button{
+    margin-top: 10vh;
+    width: 50%;
+    transform: translate(50%,-12vh);
+    background-color: #162d79;
+    color: #faf9fd;
+    padding: 5px 0px;
+    font-size: 4vh;
+    font-weight: bold;
+    border-radius: 10px;
+    border:1px solid navy;
+    cursor: pointer;
+    
+} */
+#warning{
+    
+    font-size: 2vh;
+    font-weight: normal;    
+    color: red;
+    /* border-bottom:1px solid red ; */
+    /* transform: translate(0%,-10vh);   */
+    position:absolute;
+    top:0px;
+
+
+
+}
+
+/* loader */
+#loginbutton {
+
+
+    height: 7vh;
+    width: 40vh;
+    background-color: #162d79;
+    position: absolute;
+    left: 50%;
+    top: 90%; 
+
+    transform: translate(-50%,-50%);
+    color: #faf9fd;
+    font-size: 4vh;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 2vh 5vh;
+    overflow: hidden;
+    padding: 5px 0px;
+    font-weight: bold;
+
+
+    /* display: block;
+    margin-top: 12vh;
+    transform: translate(40vw,70vh);
+    width: 100px;
+    transform: translate(50%,-12vh); 
+    background-color: #162d79;
+    color: #faf9fd;
+    padding: 5px 0px;
+    font-size: 4vh;
+    font-weight: bold;
+    border-radius: 10px;
+    border:1px solid navy;
+    cursor: pointer;
+    position:absolute; */
+    
+    
+}
+#loading {
+    
+    width: 15vh;
+    height: 15vh;
+    border: 2vh solid yellow;
+    border-top: 2Vh solid  red;
+    border-radius: 100%;
+    margin:0vh 13vh ;
+    top:10vh; 
+    animation: spin 1s infinite linear;
+    display: none;
+    position:absolute;
+  
+    
+
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

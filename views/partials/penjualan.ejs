@@ -1,0 +1,145 @@
+
+    <!--=============== HOME ===============-->
+    <section class="container section" id="penjualan">
+        <!-- <h2 class="section__title">Penjualan</h2> -->
+        <div class="card">
+          <div class="card-judul">
+            <div style="display:flex;align-items: center;">
+              Tahun
+              <select id="tahun-dropdown" onchange="ubahjualtahun()"  style="margin-left: 5px;"></select>
+             <i class="bx bx-refresh" 
+             style="color: green;font-size: 25px;margin-left: 5px;cursor:pointer;" 
+             onclick="ubahjualtahun()"></i> 
+            </div>
+            <div>
+              <span
+                class="toggle"
+                id="toggle1"
+                style="color: green"
+                onclick="data1()"
+              >
+                Grafik
+              </span>
+              <span class="dropdown" style="float: right">
+                <div class="dropbtn">
+                  <i class="bx bx-menu"></i>
+                  <!-- <button class="dropbtn">Right</button> -->
+                  <div class="dropdown-content">
+                    <a href="#">Per Bulan</a>
+                    <a href="#">Kategori</a>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+  
+          <div class="card-container">
+            <div id="grafik_penjualan_tahun"></div>
+  
+           
+          </div>
+          <div class="card-footer">
+            <div
+            id="table1"
+            style="width:100%; display: none; justify-content: center"
+          ></div>
+            <!-- <span id="total_penjualan_tahun"></span
+            ><span id="margin_penjualan_tahun"></span> -->
+          </div>
+        </div>
+  
+        <div class="card2">
+          <div class="card2-judul">
+            <div style="display:flex;align-items: center;">
+              Bulan
+              <select id="bulan-dropdown" onchange="ubahjualbulan()"  style="margin-left: 5px;"></select>
+              <select id="tahunbulan-dropdown" onchange="ubahjualbulan()" ></select>
+              <i class="bx bx-refresh" 
+              style="color: green;font-size: 25px;margin-left: 5px;cursor:pointer;" 
+              onclick="ubahjualbulan()"></i> 
+            </div>
+  
+            <!-- <div  class="menu">
+                            
+                            
+                            
+                            <i class="bx bx-menu" ></i>
+                        </div>   -->
+  
+            <div>
+              <span
+                class="toggle"
+                id="toggle2"
+                style="color: green"
+                onclick="data2()"
+              >
+                Grafik
+              </span>
+              <span class="dropdown" style="float: right">
+                <div class="dropbtn">
+                  <i class="bx bx-menu"></i>
+  
+                  <div class="dropdown-content">
+                    <a href="#">Per Hari</a>
+                    <a href="#">Kategori</a>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+          <div class="card2-container" >
+            <div id="grafik_penjualan_bulan"></div>
+           
+          </div>
+          <div class="card2-footer">
+            <div id="table2" style="width:100%;display: none; justify-content: center"></div>
+            <!-- <span id="total_penjualan_bulan"></span
+            ><span id="margin_penjualan_bulan"></span> -->
+          </div>
+        </div>
+  
+        <div class="card3">
+          <div class="card3-judul">
+            <div style="display:flex;align-items: center;">
+              Tanggal
+              <input type="date" id="tgl" name="tgl"  onchange="ubahtgl()" style="margin-left: 5px;"/>
+              <i class="bx bx-refresh" 
+              style="color: green;font-size: 25px;margin-left: 5px;cursor:pointer;" 
+              onclick="ubahtgl()"></i> 
+            </div>
+            <div class="menu">
+                <span
+                class="toggle"
+                id="toggle3"
+                style="color: green"
+                onclick="data3()"
+              >
+                Grafik
+              </span>
+              <span class="dropdown" style="float: right">
+                <div class="dropbtn">
+                  <i class="bx bx-menu"></i>
+  
+                  <div class="dropdown-content">
+                    <a href="#">PerJam</a>
+                    <a href="#">Kategori </a>
+                  </div>
+                </div>
+              </span>
+            
+            </div>
+          </div>
+          <div class="card3-container">
+            <div id="grafik_penjualan_tgl"></div>
+            </div>
+  
+  
+  
+          <div class="card3-footer">
+            <div id="table3" style="width: 100%;display: none; justify-content: center"></div>
+<!--          
+            <span id="total_penjualan_tgl"></span
+            ><span id="margin_penjualan_tgl"></span> -->
+          </div>
+        </div>
+      </section>
