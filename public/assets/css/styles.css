@@ -75,7 +75,7 @@ img {
 /*=============== REUSABLE CSS CLASSES ===============*/
 .section {
   padding-bottom: 6rem;
-  padding-top:80px ;
+  /* padding-top:80px ; */
 }
 
 .section__title {
@@ -94,8 +94,13 @@ img {
  /* max-width: 968px;  */
   margin-left: 1rem;
   margin-right: 1rem;
+  /* max-width:700px; */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
  
 }
+
 
 /*=============== HEADER ===============*/
 .header {
@@ -114,6 +119,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction:row;
 }
 
 .nav__img {
@@ -241,7 +247,7 @@ img {
     margin: 0;
   }
   .section {
-    padding: 7rem 0 2rem;
+    /* padding: 7rem 0 2rem; */
   }
   .nav {
     height: calc(var(--header-height) + 1.5rem); /* 4.5rem */
@@ -302,8 +308,8 @@ img {
   transition: 0.3s;
   width: 100%;
   border-radius: 5px;
-  margin-top:20px ;
-  /* max-width: 500px; */
+  /* margin-top:20px ; */
+  max-width: 700px;
  
 }
 
@@ -315,15 +321,27 @@ img {
 
 .card-judul {
   border-radius: 5px 5px 0 0;
-  padding:5px 10px 5px 10px; 
+  padding:10px ; 
   background-color: #75C2F6;
   color: black;
   font-weight: bold;
-  display: flex;
-  justify-content: space-between;
+  font-size:18px;
+  display:flex;
+
   align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-direction:row;
+  gap:10px;
+
 }
 
+
+/* .card .card-judul .tahun-dropdown {
+  padding: 5px;
+  margin-left: 5px;
+
+} */
 .card-footer {
   border-radius: 0px 0px 5px 5px;
   padding:5px 10px 5px 10px; 
@@ -332,7 +350,10 @@ img {
   display: flex;
   justify-content: space-between;
   font-weight: bold;
+  flex-direction:column;
+  align-items:center;
 }
+
 
 
 .card2 {
@@ -341,7 +362,7 @@ img {
   width: 100%;
   border-radius: 5px;
   margin-top:10px ;
-  /* max-width: 500px; */
+  max-width: 700px;
  
 }
 
@@ -353,13 +374,16 @@ img {
 
 .card2-judul {
   border-radius: 5px 5px 0 0;
-  padding:5px 10px 5px 10px; 
+  padding:10px; 
   background-color:#D4E2D4;
   color: black;
   font-weight: bold;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-direction:row;
+  gap:10px;
   
 }
 
@@ -371,6 +395,8 @@ img {
   justify-content: space-between;
   font-weight: bold;
   display: flex;
+  flex-direction:column;
+  align-items:center;
 }
 
 
@@ -380,7 +406,7 @@ img {
   width: 100%;
   border-radius: 5px;
   margin-top:10px ;
-  /* max-width: 500px; */
+  max-width: 700px;
  
 }
 
@@ -391,13 +417,16 @@ img {
 
 .card3-judul {
   border-radius: 5px 5px 0 0;
-  padding:5px 10px 5px 10px; 
+  padding:10px; 
   background-color:#ede507;
   color: black;
   font-weight: bold;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-direction:row;
+  gap:10px;
   
 }
 
@@ -409,7 +438,8 @@ img {
   display: flex;
   justify-content: space-between;
   font-weight: bold;
-
+  flex-direction:column;
+  align-items:center;
 }
 
 select{
@@ -417,6 +447,9 @@ select{
   border-radius:10px;
   border:2px solid grey;
   color:#333;
+  padding:4px 10px;
+  font-size:18px;
+  
 }
 
 input[type="date"] {
@@ -509,6 +542,7 @@ tbody tr:nth-child(even) {
   background-color: #eee;
   
 }
+
 .mytable ,td{
   max-width: 500px;
   border-spacing:0px ;
@@ -568,7 +602,7 @@ tbody tr:nth-child(even) {
 .wrapper .tabs_wrap{
 /*	padding: 15px 20px 0px;  */
 	border-bottom: 0px solid #ebedec;
-	position:fixed;
+	/* position:fixed; */
         z-index:1000;
         width:100%; 
 }
@@ -608,4 +642,130 @@ tbody tr:nth-child(even) {
 .wrapper .tabs_wrap ul li.active{
 	background: #083b5e;
 	color: #fff;
+}
+
+
+
+/* nav tab chart 1*/
+
+
+.wrapper .tabs_wrap_chart1{
+  	/* padding: 15px 20px 0px;  */
+    border-bottom: 0px solid #ebedec;
+    /* position:fixed; */
+          z-index:1000;
+          width:100%; 
+  }
+  
+  .wrapper .tabs_wrap_chart1 ul{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .wrapper .tabs_wrap_chart1 ul li{
+    /* width: 135px; */
+      text-align: center;
+      background: #e9ecf1;
+      border-right: 1px solid #c1c4c9;
+     padding: 10px 12px;
+     margin:4px 4px ;
+    cursor: pointer;
+    -webkit-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    border-radius:20px;
+
+  }
+  .wrapper .tabs_wrap_chart1 ul li:hover,
+  .wrapper .tabs_wrap_chart1 ul li.active{
+    background: #ff5733;
+    color: #fff;
+  } 
+
+
+  
+/* nav tab chart 2*/
+
+
+.wrapper .tabs_wrap_chart2{
+  /* padding: 15px 20px 0px;  */
+  border-bottom: 0px solid #ebedec;
+  /* position:fixed; */
+        z-index:1000;
+        width:100%; 
+}
+
+.wrapper .tabs_wrap_chart2 ul{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.wrapper .tabs_wrap_chart2 ul li{
+  /* width: 135px; */
+    text-align: center;
+    background: #e9ecf1;
+    border-right: 1px solid #c1c4c9;
+   padding: 10px 12px;
+   margin:4px 4px ;
+  cursor: pointer;
+  -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  border-radius:20px;
+
+}
+.wrapper .tabs_wrap_chart2 ul li:hover,
+.wrapper .tabs_wrap_chart2 ul li.active{
+  background: #ff5733;
+  color: #fff;
+} 
+
+
+/* nav tab chart 3*/
+
+
+.wrapper .tabs_wrap_chart3{
+  /* padding: 15px 20px 0px;  */
+  border-bottom: 0px solid #ebedec;
+  /* position:fixed; */
+        z-index:1000;
+        width:100%; 
+}
+
+.wrapper .tabs_wrap_chart3 ul{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.wrapper .tabs_wrap_chart3 ul li{
+  /* width: 135px; */
+    text-align: center;
+    background: #e9ecf1;
+    border-right: 1px solid #c1c4c9;
+   padding: 10px 12px;
+   margin:4px 4px ;
+  cursor: pointer;
+  -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  border-radius:20px;
+
+}
+.wrapper .tabs_wrap_chart3 ul li:hover,
+.wrapper .tabs_wrap_chart3 ul li.active{
+  background: #ff5733;
+  color: #fff;
+} 
+
+#grafik_penjualan_bulan {
+   display:block;
 }

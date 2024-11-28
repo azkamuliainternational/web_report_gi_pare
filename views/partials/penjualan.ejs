@@ -4,14 +4,14 @@
         <!-- <h2 class="section__title">Penjualan</h2> -->
         <div class="card">
           <div class="card-judul">
-            <div style="display:flex;align-items: center;">
+          
               Tahun
-              <select id="tahun-dropdown" onchange="ubahjualtahun()"  style="margin-left: 5px;"></select>
+              <select id="tahun-dropdown" onchange="ubahjualtahun()"  ></select>
              <i class="bx bx-refresh" 
              style="color: green;font-size: 25px;margin-left: 5px;cursor:pointer;" 
              onclick="ubahjualtahun()"></i> 
-            </div>
-            <div>
+           
+            <!-- <div>
               <span
                 class="toggle"
                 id="toggle1"
@@ -23,14 +23,14 @@
               <span class="dropdown" style="float: right">
                 <div class="dropbtn">
                   <i class="bx bx-menu"></i>
-                  <!-- <button class="dropbtn">Right</button> -->
+                
                   <div class="dropdown-content">
                     <a href="#">Per Bulan</a>
                     <a href="#">Kategori</a>
                   </div>
                 </div>
               </span>
-            </div>
+            </div> -->
           </div>
   
           <div class="card-container">
@@ -41,8 +41,21 @@
           <div class="card-footer">
             <div
             id="table1"
-            style="width:100%; display: none; justify-content: center"
-          ></div>
+            style="width:100%; display: none; justify-content: center;padding:10px 4px;"
+          >     
+        </div>
+
+
+        <div class="wrapper">
+          <div class="tabs_wrap_chart1 " >
+            <ul >
+              <li data-tabs="grafik_1" class="active" onclick="grafik_1()">Grafik</li>
+              <li data-tabs="data_1" onclick="data_1()">Data</li>
+              <!-- <li data-tabs="kategori_1" onclick="kategori_1()">Per Kategori</li>
+              <li data-tabs="barang_1" onclick="produk_1()">Per Barang</li>               -->
+            </ul>
+          </div>
+        </div>
             <!-- <span id="total_penjualan_tahun"></span
             ><span id="margin_penjualan_tahun"></span> -->
           </div>
@@ -50,14 +63,14 @@
   
         <div class="card2">
           <div class="card2-judul">
-            <div style="display:flex;align-items: center;">
+            <!-- <div style="display:flex;align-items: center;"> -->
               Bulan
-              <select id="bulan-dropdown" onchange="ubahjualbulan()"  style="margin-left: 5px;"></select>
+              <select id="bulan-dropdown" onchange="ubahjualbulan()"  ></select>
               <select id="tahunbulan-dropdown" onchange="ubahjualbulan()" ></select>
               <i class="bx bx-refresh" 
               style="color: green;font-size: 25px;margin-left: 5px;cursor:pointer;" 
               onclick="ubahjualbulan()"></i> 
-            </div>
+            <!-- </div> -->
   
             <!-- <div  class="menu">
                             
@@ -66,7 +79,7 @@
                             <i class="bx bx-menu" ></i>
                         </div>   -->
   
-            <div>
+            <!-- <div>
               <span
                 class="toggle"
                 id="toggle2"
@@ -85,29 +98,39 @@
                   </div>
                 </div>
               </span>
-            </div>
+            </div> -->
           </div>
           <div class="card2-container" >
             <div id="grafik_penjualan_bulan"></div>
            
           </div>
           <div class="card2-footer">
-            <div id="table2" style="width:100%;display: none; justify-content: center"></div>
+            <div id="table2" style="width:100%;display: none; justify-content: center;padding:10px 4px;"></div>
+        
+            <div class="wrapper">
+              <div class="tabs_wrap_chart2 " >
+                <ul >
+                  <li data-tabs="grafik_2" class="active" onclick="grafik_bulan()">Grafik</li>
+                  <li data-tabs="data_2" onclick="data_bulan()">Data</li>
+                  <li data-tabs="kategori_2" onclick="kategori_bulan()">Per Kategori</li>
+                  <!-- <li data-tabs="barang_2" onclick="produk_2()">Per Barang</li>               -->
+                </ul>
+              </div>
+            </div>
             <!-- <span id="total_penjualan_bulan"></span
             ><span id="margin_penjualan_bulan"></span> -->
           </div>
         </div>
   
         <div class="card3">
-          <div class="card3-judul">
-            <div style="display:flex;align-items: center;">
+          <div class="card3-judul">          
               Tanggal
-              <input type="date" id="tgl" name="tgl"  onchange="ubahtgl()" style="margin-left: 5px;"/>
+              <input type="date" id="tgl" name="tgl"  onchange="ubahtgl()" style="font-size: 18px;"/>
               <i class="bx bx-refresh" 
               style="color: green;font-size: 25px;margin-left: 5px;cursor:pointer;" 
               onclick="ubahtgl()"></i> 
-            </div>
-            <div class="menu">
+           
+            <!-- <div class="menu">
                 <span
                 class="toggle"
                 id="toggle3"
@@ -127,7 +150,7 @@
                 </div>
               </span>
             
-            </div>
+            </div> -->
           </div>
           <div class="card3-container">
             <div id="grafik_penjualan_tgl"></div>
@@ -136,8 +159,19 @@
   
   
           <div class="card3-footer">
-            <div id="table3" style="width: 100%;display: none; justify-content: center"></div>
-<!--          
+            <div id="table3" style="width: 100%;display: none; justify-content: center;padding:10px 4px;"></div>
+            <div class="wrapper">
+              <div class="tabs_wrap_chart3 " >
+                <ul >
+                  <li data-tabs="grafik_3" class="active" onclick="grafik_tgl()">Grafik</li>
+                  <li data-tabs="data_3" onclick="data_tgl()">Data</li>
+                  <li data-tabs="kategori_3" onclick="kategori_tgl()">Per Kategori</li>
+                  <li data-tabs="barang_3" onclick="barang_tgl()">Per Barang</li>              
+                </ul>
+              </div>
+            </div>
+
+            <!--          
             <span id="total_penjualan_tgl"></span
             ><span id="margin_penjualan_tgl"></span> -->
           </div>

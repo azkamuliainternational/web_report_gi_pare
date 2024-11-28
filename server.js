@@ -1,5 +1,10 @@
 // load the things we need
+require('dotenv').config();
+const baseurl = process.env.URL_BASE;
+const port = process.env.PORT;
+const db = process.env.DB;
 
+console.log(baseurl);
 var express = require('express');
 var app = express();
 // app.use(cors())
@@ -13,12 +18,12 @@ app.use(express.static(__dirname + '/public'));
 // index page
 app.get('/', function(req, res) {
   
-    res.render('pages/login');
+    res.render('pages/login',{ baseurl: baseurl });
 });
 // persediaan page
 app.get('/penjualan', function(req, res) {
   
-    res.render('pages/penjualan');
+    res.render('pages/penjualan',{ baseurl: baseurl });
 });
 
 // persediaan page
@@ -31,5 +36,5 @@ app.get('/info', function(req, res) {
 });
 
 
-app.listen(8081);
-console.log('8081 is the magic port');
+app.listen(port);
+console.log(port+' is the magic port');

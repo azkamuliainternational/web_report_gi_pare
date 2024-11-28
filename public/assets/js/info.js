@@ -1,3 +1,3 @@
 var hidetab=document.querySelector(".wrapper")
-hidetab.style.display="none"
+hidetab.style.visibility="hidden"
 
