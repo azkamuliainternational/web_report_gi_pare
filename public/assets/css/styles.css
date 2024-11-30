@@ -329,7 +329,7 @@ img {
   display:flex;
 
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   font-weight: bold;
   flex-direction:row;
   gap:10px;
@@ -380,7 +380,7 @@ img {
   font-weight: bold;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   font-weight: bold;
   flex-direction:row;
   gap:10px;
@@ -423,7 +423,7 @@ img {
   font-weight: bold;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   font-weight: bold;
   flex-direction:row;
   gap:10px;

@@ -4,13 +4,14 @@
         <!-- <h2 class="section__title">Penjualan</h2> -->
         <div class="card">
           <div class="card-judul">
-          
+          <div>
               Tahun
               <select id="tahun-dropdown" onchange="ubahjualtahun()"  ></select>
              <i class="bx bx-refresh" 
              style="color: green;font-size: 25px;margin-left: 5px;cursor:pointer;" 
              onclick="ubahjualtahun()"></i> 
-           
+          </div> 
+          <div class="companyname"></div>
             <!-- <div>
               <span
                 class="toggle"
@@ -63,15 +64,15 @@
   
         <div class="card2">
           <div class="card2-judul">
-            <!-- <div style="display:flex;align-items: center;"> -->
+            <div>
               Bulan
               <select id="bulan-dropdown" onchange="ubahjualbulan()"  ></select>
               <select id="tahunbulan-dropdown" onchange="ubahjualbulan()" ></select>
               <i class="bx bx-refresh" 
               style="color: green;font-size: 25px;margin-left: 5px;cursor:pointer;" 
               onclick="ubahjualbulan()"></i> 
-            <!-- </div> -->
-  
+            </div>
+            <div class="companyname"></div>
             <!-- <div  class="menu">
                             
                             
@@ -113,7 +114,7 @@
                   <li data-tabs="grafik_2" class="active" onclick="grafik_bulan()">Grafik</li>
                   <li data-tabs="data_2" onclick="data_bulan()">Data</li>
                   <li data-tabs="kategori_2" onclick="kategori_bulan()">Per Kategori</li>
-                  <!-- <li data-tabs="barang_2" onclick="produk_2()">Per Barang</li>               -->
+                  <li data-tabs="payment_2" onclick="payment_bulan()">Per Payment</li>              
                 </ul>
               </div>
             </div>
@@ -124,12 +125,15 @@
   
         <div class="card3">
           <div class="card3-judul">          
-              Tanggal
+            <div>  
+            Tanggal
               <input type="date" id="tgl" name="tgl"  onchange="ubahtgl()" style="font-size: 18px;"/>
               <i class="bx bx-refresh" 
               style="color: green;font-size: 25px;margin-left: 5px;cursor:pointer;" 
               onclick="ubahtgl()"></i> 
-           
+            </div>
+            <div class="companyname"></div>
+
             <!-- <div class="menu">
                 <span
                 class="toggle"

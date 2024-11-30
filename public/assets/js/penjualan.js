@@ -8,6 +8,8 @@ let kasa = 0;
 let kliktgl=1;
 let klikbulan=1;
 let kliktahun=1;
+company_text('Diksi Senja')
+
 
 
 // console.log('window.baseurl'+window.baseurl); 
@@ -44,14 +46,20 @@ function jalankan() {
   }
 }
 
+ 
+
 function company1() {
+  
+
   compa = 1;
   kasa = 0;
   penjualan();
 
+
 }
 
 function company2() {
+
   compa = 2;
   kasa = 3;
 
@@ -61,22 +69,31 @@ function company2() {
 
 }
 function company3() {
+
   compa = 2;
   kasa = 1;
   penjualan();
 }
 function company4() {
+
   compa = 3;
   kasa = 0;
   penjualan();
 }
+
 function company5() {
+
   compa = 4;
   kasa = 0;
   penjualan();
 }
 
-
+function company_text(nama){
+  const companyElements = document.getElementsByClassName("companyname");
+  for (let element of companyElements) {
+      element.innerHTML = nama;
+  }
+}
 
 
 var tabs = document.querySelectorAll(".tabs_wrap ul li");
@@ -90,6 +107,10 @@ tabs.forEach((tab) => {
       tab.classList.remove("active");
     })
     tab.classList.add("active");
+     company_text(tab.innerHTML);
+    
+    // document.querySelector(".companyname").innerHTML = ;
+    // console.log(tab.innerHTML)
     var tabval = tab.getAttribute("data-tabs");
 
     all.forEach((item) => {
@@ -1138,6 +1159,100 @@ async function kategori_bulan() {
 
 }
 
+
+
+
+
+// penjualan kategori bulan
+async function payment_bulan() {
+  klikbulan=4;
+  document.getElementById("table2").style.display = "flex";
+  document.getElementById("grafik_penjualan_bulan").style.display = "none";
+  bulan =
+  padTo2Digits(document.getElementById("bulan-dropdown").value) +
+  document.getElementById("tahunbulan-dropdown").value;
+  const url_bulan = `${baseurl}/pos_order_month/payment/${compa}/${bulan}/${kasa}`;
+   console.log(url_bulan)
+  try {
+    const res = await fetch(url_bulan, {
+      method: "GET",
+    });
+
+    const datahasil = await res.json();
+    jsonData = datahasil.records;
+    let data = [];
+    let xaxis = [];
+    let nos = [];
+    let totaljual = 0;
+    let no = 0;
+
+    for (x in jsonData) {
+      totaljual = totaljual + jsonData[x].amount_total;
+      no += 1;
+      xaxis.push(jsonData[x].nama);
+      data.push(jsonData[x].amount_total );       
+      nos.push(no );
+    }
+
+    addTable_payment_bulan(xaxis, data,nos, totaljual);
+     // Return the records for further use
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+
+}
+
+
+
+function addTable_payment_bulan(xaxis, data,nos, totaljual) {
+  var myTableDiv = document.getElementById("table2");
+  var strtable = "";
+  // console.log('data:'+data.length);
+  strtable =
+    '<table width="100%" class="mytable">' +
+    " <thead>" +
+    " <tr>" +
+    '     <th class="kiri">No.</th>' +
+    '     <th class="kanan">Nama</th>' +
+    '     <th class="kanan">Total</th>' +
+    " </tr>" +
+    " </thead>" +
+    " <tbody>";
+  for (var i = 0; i < data.length; i++) {
+    if (data[i] != 0) {
+      strtable +=
+        '  <tr>     <td class="kiri">' +
+        nos[i] +
+        "</td>" +
+        '     <td class="kiri">' +
+        xaxis[i]  +
+        "</td>" +
+        '     <td class="kanan">' +
+        rupiah(data[i]) +
+        "</td></tr>";
+    }
+  }
+
+  strtable +=
+    "  </tbody>" +
+    "<tfoot>" +
+    "<tr>" +
+    '  <th scope="row">Totals</th>' +
+    '  <td class="kanan"></td>' +
+    '  <td class="kanan">' +
+    rupiah(totaljual) +
+    "</td>" +
+    "</tr>" +
+    "</tfoot>" +
+    "                          </table>";
+
+  myTableDiv.innerHTML = strtable;
+}
+
+
+
+
+
 // penjualan per kategori
 
 async function kategori_tgl() {
@@ -1315,3 +1430,4 @@ function addTable_kategori_bulan(xaxis, data, margin, totaljual, totalmargin) {
 
   myTableDiv.innerHTML = strtable;
 }
+
