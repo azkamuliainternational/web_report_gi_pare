@@ -361,6 +361,8 @@ function grafik_tahun(hasil) {
 }
 
 async function grafik_bulan() {
+  const targetElement = document.getElementById('tabs_tahun');
+  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
   klikbulan=1;
   document.getElementById("table2").style.display = "none";
   document.getElementById("grafik_penjualan_bulan").style.display = "block";
@@ -491,6 +493,8 @@ async function grafik_bulan() {
 }
 
 async function grafik_tgl() {
+  const targetElement = document.getElementById('tabs_bulan');
+  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
   kliktgl=1;
   document.getElementById("table3").style.display = "none";
   document.getElementById("grafik_penjualan_tgl").style.display = "block";
@@ -1043,6 +1047,8 @@ function data_1() {
 // }
 
 async function data_bulan() {
+  const targetElement = document.getElementById('tabs_tahun');
+  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
   klikbulan=2;
   document.getElementById("table2").style.display = "flex";
   document.getElementById("grafik_penjualan_bulan").style.display = "none";
@@ -1068,6 +1074,7 @@ async function data_bulan() {
     margin.push(jsonData[x].margin / 1000);
   }
   addTable2(xaxis, data, margin, totaljual, totalmargin);
+  
 }
 
 function grafik_3() {
@@ -1076,6 +1083,8 @@ function grafik_3() {
 }
 
 async function data_tgl() {
+  const targetElement = document.getElementById('tabs_bulan');
+  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
   kliktgl=2;
   document.getElementById("table3").style.display = "flex";
   document.getElementById("grafik_penjualan_tgl").style.display = "none";
@@ -1167,6 +1176,11 @@ function getDayName(dateStr, locale) {
 
 // penjualan kategori bulan
 async function kategori_bulan() {
+  const targetElement = document.getElementById('tabs_tahun');
+  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+  // const offset = elementPosition; // Adjust offset (negative for upwards, positive for downwards)
+  // window.scrollBy({ top: elementPosition - offset, behavior: 'smooth' });
   klikbulan=3;
   document.getElementById("table2").style.display = "flex";
   document.getElementById("grafik_penjualan_bulan").style.display = "none";
@@ -1197,6 +1211,7 @@ async function kategori_bulan() {
     }
 
     addTable_kategori_bulan(xaxis, data, margin, totaljual, totalmargin);
+
      // Return the records for further use
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -1210,6 +1225,7 @@ async function kategori_bulan() {
 
 // penjualan kategori bulan
 async function payment_bulan() {
+
   klikbulan=4;
   document.getElementById("table2").style.display = "flex";
   document.getElementById("grafik_penjualan_bulan").style.display = "none";
@@ -1240,6 +1256,9 @@ async function payment_bulan() {
     }
 
     addTable_payment_bulan(xaxis, data,nos, totaljual);
+    const targetElement = document.getElementById('tabs_tahun');
+    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
      // Return the records for further use
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -1301,6 +1320,8 @@ function addTable_payment_bulan(xaxis, data,nos, totaljual) {
 // penjualan per kategori
 
 async function kategori_tgl() {
+  const targetElement = document.getElementById('tabs_bulan');
+  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
   kliktgl=3;
   document.getElementById("table3").style.display = "flex";
   document.getElementById("grafik_penjualan_tgl").style.display = "none";
@@ -1337,6 +1358,8 @@ async function kategori_tgl() {
 }
 
 async function barang_tgl() {
+  const targetElement = document.getElementById('tabs_bulan');
+  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
   kliktgl=4;
   document.getElementById("table3").style.display = "flex";
   document.getElementById("grafik_penjualan_tgl").style.display = "none";
