@@ -46,11 +46,56 @@ function jalankan() {
   }
 }
 
+function resetTab() {
+  // Get the <ul> element
+  const ulElement1 = document.getElementById('tabs_tahun');
+
+  const activeElements1 = ulElement1.querySelectorAll('li.active');
+
+    // Remove the "active" class from each element
+    activeElements1.forEach(element => {
+        element.classList.remove('active');
+    });
+
+  // Find the <li> element with the specific data-tabs value
+  const targetElement1 = ulElement1.querySelector(`li[data-tabs="grafik_1"]`);
+  targetElement1.classList.add('active');
+    
+    // Get the <ul> element
+    const ulElement2 = document.getElementById('tabs_bulan');
+
+
+    const activeElements2 = ulElement2.querySelectorAll('li.active');
+
+    // Remove the "active" class from each element
+    activeElements2.forEach(element => {
+        element.classList.remove('active');
+    });
+
+    // Find the <li> element with the specific data-tabs value
+    const targetElement2 = ulElement2.querySelector(`li[data-tabs="grafik_2"]`);
+    targetElement2.classList.add('active');
+
+      // Get the <ul> element
+  const ulElement3 = document.getElementById('tabs_tgl');
+
+  const activeElements3 = ulElement3.querySelectorAll('li.active');
+
+  // Remove the "active" class from each element
+  activeElements3.forEach(element => {
+      element.classList.remove('active');
+  });
+
+  // Find the <li> element with the specific data-tabs value
+  const targetElement3 = ulElement3.querySelector(`li[data-tabs="grafik_3"]`);
+  targetElement3.classList.add('active');
+}
+
  
 
 function company1() {
   
-
+  resetTab()
   compa = 1;
   kasa = 0;
   penjualan();
@@ -59,7 +104,7 @@ function company1() {
 }
 
 function company2() {
-
+  resetTab()
   compa = 2;
   kasa = 3;
 
@@ -69,20 +114,20 @@ function company2() {
 
 }
 function company3() {
-
+  resetTab()
   compa = 2;
   kasa = 1;
   penjualan();
 }
 function company4() {
-
+  resetTab()
   compa = 3;
   kasa = 0;
   penjualan();
 }
 
 function company5() {
-
+  resetTab()
   compa = 4;
   kasa = 0;
   penjualan();
