@@ -89,48 +89,56 @@ function resetTab() {
   // Find the <li> element with the specific data-tabs value
   const targetElement3 = ulElement3.querySelector(`li[data-tabs="grafik_3"]`);
   targetElement3.classList.add('active');
+
+//  position top
+window.scrollTo({ top: 0, behavior: 'smooth' });
+
 }
 
  
 
 function company1() {
   
-  resetTab()
+
   compa = 1;
   kasa = 0;
   penjualan();
-
+  resetTab()
 
 }
 
 function company2() {
-  resetTab()
+
   compa = 2;
   kasa = 3;
 
   penjualan();
+  resetTab()
   //  ubahjualtahun()
   // jalankan;
 
 }
 function company3() {
-  resetTab()
+
   compa = 2;
   kasa = 1;
   penjualan();
+  resetTab()
 }
 function company4() {
-  resetTab()
+
   compa = 3;
   kasa = 0;
   penjualan();
+  resetTab()
 }
 
 function company5() {
-  resetTab()
+
   compa = 4;
   kasa = 0;
   penjualan();
+  resetTab()
 }
 
 function company_text(nama){
@@ -1036,6 +1044,8 @@ function grafik_1() {
 }
 
 function data_1() {
+  const targetElement = document.getElementById('tab_company');
+  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
   document.getElementById("table1").style.display = "flex";
   document.getElementById("grafik_penjualan_tahun").style.display = "none";
   // console.log(document.getElementById("table1").style.display);
