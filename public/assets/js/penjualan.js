@@ -251,22 +251,29 @@ document.getElementById("tgl").valueAsDate = new Date();
 function penjualan() {
   menu = "penjualan";
  
-  penjualantahun(tahun);
+  // penjualantahun(tahun);
   // penjualanbulan(bulan);
+  grafik_tahun()
   grafik_bulan();
   grafik_tgl();
   // penjualantgl(tgl)
 }
 
 
-function grafik_tahun(hasil) {
+async  function grafik_tahun() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  kliktahun=1;
+  document.getElementById("table1").style.display = "none";
+  document.getElementById("grafik_penjualan_tahun").style.display = "block";
+  tahun = document.getElementById("tahun-dropdown").value;
+  
   let data = [];
   let xaxis = [];
   let margin = [];
   let totaljual = 0;
   let totalmargin = 0;
 
-  jsonData = hasil;
+  let jsonData = await penjualantahun(tahun);
 
   let x = 0;
   for (x in jsonData) {
@@ -756,19 +763,30 @@ function isibulan() {
   document.getElementById(theMonths[aMonth]).selected = "true";
 }
 
-function penjualantahun(tahun) {
+async function penjualantahun(tahun) {
  
 
   const url_tahun = `${baseurl}/pos_order_year/grafik/${compa}/${tahun}/${kasa}`;
-  // console.log("url" + url_tahun);
-  fetch(url_tahun, {
-    method: "GET",
-  })
-    .then((res) => res.json())
-    .then((d) => {
-      // console.log("haloo" + JSON.stringify(d));
-      grafik_tahun(d.records);
+  try {
+    const res = await fetch(url_tahun, {
+      method: "GET",
     });
+
+    const data = await res.json();
+    return data.records; // Return the records for further use
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+
+  // console.log("url" + url_tahun);
+  // fetch(url_tahun, {
+  //   method: "GET",
+  // })
+  //   .then((res) => res.json())
+  //   .then((d) => {
+  //     // console.log("haloo" + JSON.stringify(d));
+  //     grafik_tahun(d.records);
+  //   });
 }
 
 async function penjualanbulan(bulan) {
@@ -817,13 +835,43 @@ function ubahjualbulan() {
   if (klikbulan==3){
     kategori_bulan();
   }
-  
+  if (klikbulan==4){
+    cfd_bulan();
+  }
+  if (klikbulan==5){
+    reservasi_bulan();
+  }
+  if (klikbulan==6){
+    payment_bulan();
+  }
   
 }
 
 function ubahjualtahun() {
   tahun = document.getElementById("tahun-dropdown").value;
-  penjualantahun(tahun);
+
+  if (kliktahun==1){
+    grafik_tahun();
+  }
+  if (kliktahun==2){
+    data_tahun();
+  }
+  if (kliktahun==3){
+    kategori_tahun();
+  }
+  if (kliktahun==4){
+    cfd_tahun();
+  }
+  if (kliktahun==5){
+    reservasi_tahun();
+  }
+  if (kliktahun==6){
+    payment_tahun();
+  }
+  // penjualantahun(tahun);
+
+
+
 
 }
 
@@ -841,6 +889,12 @@ function ubahtgl() {
   }
   if (kliktgl==4){
     barang_tgl();
+  }
+  if (kliktgl==5){
+    cfd_tgl();
+  }
+  if (kliktgl==6){
+    reservasi_tgl();
   }
 
 }
@@ -1038,14 +1092,14 @@ function data1() {
   }
 }
 
-function grafik_1() {
-  document.getElementById("table1").style.display = "none";
-  document.getElementById("grafik_penjualan_tahun").style.display = "block";
-}
+// function grafik_tahun() {
+//   window.scrollTo({ top: 0, behavior: 'smooth' });
+//   document.getElementById("table1").style.display = "none";
+//   document.getElementById("grafik_penjualan_tahun").style.display = "block";
+// }
 
-function data_1() {
-  const targetElement = document.getElementById('tab_company');
-  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+function data_tahun() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   document.getElementById("table1").style.display = "flex";
   document.getElementById("grafik_penjualan_tahun").style.display = "none";
   // console.log(document.getElementById("table1").style.display);
@@ -1184,6 +1238,49 @@ function getDayName(dateStr, locale) {
   return date.toLocaleDateString(locale, { weekday: "long" });
 }
 
+
+// penjualan kategori tahun
+async function kategori_tahun() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+  // const offset = elementPosition; // Adjust offset (negative for upwards, positive for downwards)
+  // window.scrollBy({ top: elementPosition - offset, behavior: 'smooth' });
+  kliktahun=3;
+  document.getElementById("table1").style.display = "flex";
+  document.getElementById("grafik_penjualan_tahun").style.display = "none";
+  tahun =document.getElementById("tahun-dropdown").value;
+  const url_tahun = `${baseurl}/pos_order_year/kategori/${compa}/${tahun}/${kasa}`;
+   console.log(url_tahun)
+  try {
+    const res = await fetch(url_tahun, {
+      method: "GET",
+    });
+
+    const datahasil = await res.json();
+    jsonData = datahasil.records;
+    let data = [];
+    let xaxis = [];
+    let margin = [];
+    let totaljual = 0;
+    let totalmargin = 0;
+
+    for (x in jsonData) {
+      totaljual = totaljual + jsonData[x].amount_total;
+      totalmargin += jsonData[x].margin;
+      xaxis.push(jsonData[x].kategori);
+      data.push(jsonData[x].amount_total/1000 );       
+      margin.push(jsonData[x].margin/1000 );
+    }
+
+    addTable_kategori_tahun(xaxis, data, margin, totaljual, totalmargin);
+
+     // Return the records for further use
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+
+}
 // penjualan kategori bulan
 async function kategori_bulan() {
   const targetElement = document.getElementById('tabs_tahun');
@@ -1231,12 +1328,224 @@ async function kategori_bulan() {
 
 
 
+// penjualan reservasi tahun
+async function reservasi_tahun() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  kliktahun=5;
+  document.getElementById("table1").style.display = "flex";
+  document.getElementById("grafik_penjualan_tahun").style.display = "none";
+  tahun =document.getElementById("tahun-dropdown").value;
+  const url_tahun = `${baseurl}/pos_order_year/reservasi/${compa}/${tahun}/${kasa}`;
+   console.log(url_tahun)
+  try {
+    const res = await fetch(url_tahun, {
+      method: "GET",
+    });
 
+    const datahasil = await res.json();
+    jsonData = datahasil.records;
+    let data = [];
+    let xaxis = [];
+    let nos = [];
+    let totaljual = 0;
+    let no = 0;
+
+    for (x in jsonData) {
+      totaljual = totaljual + jsonData[x].amount_total;
+      no += 1;
+      xaxis.push(jsonData[x].bulan);
+      data.push(jsonData[x].amount_total );       
+      nos.push(no );
+    }
+
+    addTable_reservasi_tahun(xaxis, data,nos, totaljual);
+    // const targetElement = document.getElementById('tabs_tahun');
+    // targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+     // Return the records for further use
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+
+}
+
+
+// penjualan reservasi bulan
+async function reservasi_bulan() {
+  const targetElement = document.getElementById('tabs_tahun');
+  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  klikbulan=5;
+  document.getElementById("table2").style.display = "flex";
+  document.getElementById("grafik_penjualan_bulan").style.display = "none";
+  bulan =
+  padTo2Digits(document.getElementById("bulan-dropdown").value) +
+  document.getElementById("tahunbulan-dropdown").value;
+  
+  const url_bulan = `${baseurl}/pos_order_month/reservasi/${compa}/${bulan}/${kasa}`;
+   console.log(url_bulan)
+  try {
+    const res = await fetch(url_bulan, {
+      method: "GET",
+    });
+
+    const datahasil = await res.json();
+    jsonData = datahasil.records;
+    let data = [];
+    let xaxis = [];
+    let nos = [];
+    let totaljual = 0;
+    let no = 0;
+
+    for (x in jsonData) {
+      totaljual = totaljual + jsonData[x].amount_total;
+      no += 1;
+      xaxis.push(jsonData[x].date_order);
+      data.push(jsonData[x].amount_total );       
+      nos.push(no );
+    }
+
+    addTable_reservasi_bulan(xaxis, data,nos, totaljual);
+    // const targetElement = document.getElementById('tabs_tahun');
+    // targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+     // Return the records for further use
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+
+}
+
+// penjualan CFD tahun
+async function cfd_tahun() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  kliktahun=4;
+  document.getElementById("table1").style.display = "flex";
+  document.getElementById("grafik_penjualan_tahun").style.display = "none";
+  tahun =document.getElementById("tahun-dropdown").value;
+  const url_tahun = `${baseurl}/pos_order_year/cfd/${compa}/${tahun}/${kasa}`;
+   console.log(url_tahun)
+  try {
+    const res = await fetch(url_tahun, {
+      method: "GET",
+    });
+
+    const datahasil = await res.json();
+    jsonData = datahasil.records;
+    let data = [];
+    let xaxis = [];
+    let nos = [];
+    let totaljual = 0;
+    let no = 0;
+
+    for (x in jsonData) {
+      totaljual = totaljual + jsonData[x].amount_total;
+      no += 1;
+      xaxis.push(jsonData[x].bulan);
+      data.push(jsonData[x].amount_total );       
+      nos.push(no );
+    }
+
+    addTable_cfd_tahun(xaxis, data,nos, totaljual);
+    // const targetElement = document.getElementById('tabs_tahun');
+    // targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+     // Return the records for further use
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+
+}
+
+
+// penjualan CFD bulan
+async function cfd_bulan() {
+  const targetElement = document.getElementById('tabs_tahun');
+  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  klikbulan=4;
+  document.getElementById("table2").style.display = "flex";
+  document.getElementById("grafik_penjualan_bulan").style.display = "none";
+  bulan =
+  padTo2Digits(document.getElementById("bulan-dropdown").value) +
+  document.getElementById("tahunbulan-dropdown").value;
+  const url_bulan = `${baseurl}/pos_order_month/cfd/${compa}/${bulan}/${kasa}`;
+   console.log(url_bulan)
+  try {
+    const res = await fetch(url_bulan, {
+      method: "GET",
+    });
+
+    const datahasil = await res.json();
+    jsonData = datahasil.records;
+    let data = [];
+    let xaxis = [];
+    let nos = [];
+    let totaljual = 0;
+    let no = 0;
+
+    for (x in jsonData) {
+      totaljual = totaljual + jsonData[x].amount_total;
+      no += 1;
+      xaxis.push(jsonData[x].bulan);
+      data.push(jsonData[x].amount_total );       
+      nos.push(no );
+    }
+
+    addTable_cfd_bulan(xaxis, data,nos, totaljual);
+    // const targetElement = document.getElementById('tabs_tahun');
+    // targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+     // Return the records for further use
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+
+}
+
+// penjualan kategori tahun
+async function payment_tahun() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  kliktahun=6;
+  document.getElementById("table1").style.display = "flex";
+  document.getElementById("grafik_penjualan_tahun").style.display = "none";
+  tahun =document.getElementById("tahun-dropdown").value;
+  const url_tahun = `${baseurl}/pos_order_year/payment/${compa}/${tahun}/${kasa}`;
+   console.log(url_tahun)
+  try {
+    const res = await fetch(url_tahun, {
+      method: "GET",
+    });
+
+    const datahasil = await res.json();
+    jsonData = datahasil.records;
+    let data = [];
+    let xaxis = [];
+    let nos = [];
+    let totaljual = 0;
+    let no = 0;
+
+    for (x in jsonData) {
+      totaljual = totaljual + jsonData[x].amount_total;
+      no += 1;
+      xaxis.push(jsonData[x].nama);
+      data.push(jsonData[x].amount_total );       
+      nos.push(no );
+    }
+
+    addTable_payment_tahun(xaxis, data,nos, totaljual);
+    // const targetElement = document.getElementById('tabs_tahun');
+    // targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+     // Return the records for further use
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+
+}
 
 // penjualan kategori bulan
 async function payment_bulan() {
 
-  klikbulan=4;
+  klikbulan=6;
   document.getElementById("table2").style.display = "flex";
   document.getElementById("grafik_penjualan_bulan").style.display = "none";
   bulan =
@@ -1325,6 +1634,52 @@ function addTable_payment_bulan(xaxis, data,nos, totaljual) {
 
 
 
+// payment tahun
+
+function addTable_payment_tahun(xaxis, data,nos, totaljual) {
+  var myTableDiv = document.getElementById("table1");
+  var strtable = "";
+  // console.log('data:'+data.length);
+  strtable =
+    '<table width="100%" class="mytable">' +
+    " <thead>" +
+    " <tr>" +
+    '     <th class="kiri">No.</th>' +
+    '     <th class="kanan">Nama</th>' +
+    '     <th class="kanan">Total</th>' +
+    " </tr>" +
+    " </thead>" +
+    " <tbody>";
+  for (var i = 0; i < data.length; i++) {
+    if (data[i] != 0) {
+      strtable +=
+        '  <tr>     <td class="kiri">' +
+        nos[i] +
+        "</td>" +
+        '     <td class="kiri">' +
+        xaxis[i]  +
+        "</td>" +
+        '     <td class="kanan">' +
+        rupiah(data[i]) +
+        "</td></tr>";
+    }
+  }
+
+  strtable +=
+    "  </tbody>" +
+    "<tfoot>" +
+    "<tr>" +
+    '  <th scope="row">Totals</th>' +
+    '  <td class="kanan"></td>' +
+    '  <td class="kanan">' +
+    rupiah(totaljual) +
+    "</td>" +
+    "</tr>" +
+    "</tfoot>" +
+    "                          </table>";
+
+  myTableDiv.innerHTML = strtable;
+}
 
 
 // penjualan per kategori
@@ -1375,7 +1730,7 @@ async function barang_tgl() {
   document.getElementById("grafik_penjualan_tgl").style.display = "none";
 
   tgl = formattgl(new Date(document.getElementById("tgl").value));
-  const url_tgl = `${baseurl}/pos_order_today/1000/${compa}/${tgl}/${kasa}`;
+  const url_tgl = `${baseurl}/pos_order_today/data/${compa}/${tgl}/${kasa}`;
   //  console.log(url_bulan)
   try {
     const res = await fetch(url_tgl, {
@@ -1462,6 +1817,135 @@ function addTablebarang(xaxis, qty,total, margin, totaljual, totalmargin) {
 }
 
 
+
+function addTablereservasi(xaxis, qty,total, margin, totaljual, totalmargin) {
+  var myTableDiv = document.getElementById("table3");
+  var strtable = "";
+  //console.log('data tabel 3:'+data.length);
+  strtable =
+    '<table width="100%" class="mytable">' +
+    " <thead>" +
+    " <tr>" +
+    '     <th class="kiri">Nama</th>' +
+    '     <th class="kanan">Qty</th>' +
+    '     <th class="kanan">Penjualan</th>' +
+    " </tr>" +
+    " </thead>" +
+    " <tbody>";
+  for (var i = 0; i < total.length; i++) {
+    if (total[i] != 0) {
+      strtable +=
+        '  <tr>     <td class="kiri">' +
+        xaxis[i] +
+        "</td>" +
+        '     <td class="kanan">' +
+        (qty[i] ) +
+        "</td>" +
+        '     <td class="kanan">' +
+        rupiah(total[i] ) +
+        "</td></tr>";
+    }
+  }
+
+  strtable +=
+    "  </tbody>" +
+    "<tfoot>" +
+    "<tr>" +
+    '  <td scope="row">Total</td>' +
+    '  <td scope="row"></td>' +
+    '  <td class="kanan">' +
+    rupiah(totaljual) +
+    "</td>" +
+    "</tr>" +
+    "</tfoot>" +
+    "                          </table>";
+
+  myTableDiv.innerHTML = strtable;
+}
+
+async function cfd_tgl() {
+  const targetElement = document.getElementById('tabs_bulan');
+  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  kliktgl=5;
+  document.getElementById("table3").style.display = "flex";
+  document.getElementById("grafik_penjualan_tgl").style.display = "none";
+
+  tgl = formattgl(new Date(document.getElementById("tgl").value));
+  const url_tgl = `${baseurl}/pos_order_today/cfd/${compa}/${tgl}/${kasa}`;
+  //  console.log(url_bulan)
+  try {
+    const res = await fetch(url_tgl, {
+      method: "GET",
+    });
+
+    const datahasil = await res.json();
+    jsonData = datahasil.records;
+    console.log(jsonData)
+    let total = [];
+    let qty = [];
+    let xaxis = [];
+    let margin = [];
+    let totaljual = 0;
+    let totalmargin = 0;
+
+    for (x in jsonData) {
+      totaljual = totaljual + jsonData[x].amount_total;
+      totalmargin += jsonData[x].margin;
+      xaxis.push(jsonData[x].nama);
+      qty.push(jsonData[x].qty ); 
+      total.push(jsonData[x].amount_total );        
+      margin.push(jsonData[x].margin );
+    }
+
+    addTablebarang(xaxis, qty,total, margin, totaljual, totalmargin);
+     // Return the records for further use
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+
+async function reservasi_tgl() {
+  const targetElement = document.getElementById('tabs_bulan');
+  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  kliktgl=6;
+  document.getElementById("table3").style.display = "flex";
+  document.getElementById("grafik_penjualan_tgl").style.display = "none";
+
+  tgl = formattgl(new Date(document.getElementById("tgl").value));
+  const url_tgl = `${baseurl}/pos_order_today/reservasi/${compa}/${tgl}/${kasa}`;
+  //  console.log(url_bulan)
+  try {
+    const res = await fetch(url_tgl, {
+      method: "GET",
+    });
+
+    const datahasil = await res.json();
+    jsonData = datahasil.records;
+    console.log(jsonData)
+    let total = [];
+    let qty = [];
+    let xaxis = [];
+    let margin = [];
+    let totaljual = 0;
+    let totalmargin = 0;
+
+    for (x in jsonData) {
+      totaljual = totaljual + jsonData[x].amount_total;
+      totalmargin += jsonData[x].margin;
+      xaxis.push(jsonData[x].nama);
+      qty.push(jsonData[x].qty ); 
+      total.push(jsonData[x].amount_total );        
+      margin.push(jsonData[x].margin );
+    }
+
+    addTablereservasi(xaxis, qty,total, margin, totaljual, totalmargin);
+     // Return the records for further use
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
 function addTable_kategori_bulan(xaxis, data, margin, totaljual, totalmargin) {
   var myTableDiv = document.getElementById("table2");
   var strtable = "";
@@ -1509,3 +1993,238 @@ function addTable_kategori_bulan(xaxis, data, margin, totaljual, totalmargin) {
   myTableDiv.innerHTML = strtable;
 }
 
+
+function addTable_kategori_tahun(xaxis, data, margin, totaljual, totalmargin) {
+  var myTableDiv = document.getElementById("table1");
+  var strtable = "";
+  // console.log('data:'+data.length);
+  strtable =
+    '<table width="100%" class="mytable">' +
+    " <thead>" +
+    " <tr>" +
+    '     <th class="kiri">Kategori</th>' +
+    '     <th class="kanan">Penjualan</th>' +
+    '     <th class="kanan">Margin</th>' +
+    " </tr>" +
+    " </thead>" +
+    " <tbody>";
+  for (var i = 0; i < data.length; i++) {
+    if (data[i] != 0) {
+      strtable +=
+        '  <tr>     <td class="kiri">' +
+        xaxis[i] +
+        "</td>" +
+        '     <td class="kanan">' +
+        rupiah(data[i] * 1000) +
+        "</td>" +
+        '     <td class="kanan">' +
+        rupiah(margin[i] * 1000) +
+        "</td></tr>";
+    }
+  }
+
+  strtable +=
+    "  </tbody>" +
+    "<tfoot>" +
+    "<tr>" +
+    '  <th scope="row">Totals</th>' +
+    '  <td class="kanan">' +
+    rupiah(totaljual) +
+    "</td>" +
+    '  <td class="kanan">' +
+    rupiah(totalmargin) +
+    "</td>" +
+    "</tr>" +
+    "</tfoot>" +
+    "                          </table>";
+
+  myTableDiv.innerHTML = strtable;
+}
+
+
+function addTable_cfd_tahun(xaxis, data,nos, totaljual) {
+  var myTableDiv = document.getElementById("table1");
+  var strtable = "";
+  // console.log('data:'+data.length);
+  strtable =
+    '<table width="100%" class="mytable">' +
+    " <thead>" +
+    " <tr>" +
+    '     <th class="kiri">No.</th>' +
+    '     <th class="kanan">Bulan</th>' +
+    '     <th class="kanan">Total</th>' +
+    " </tr>" +
+    " </thead>" +
+    " <tbody>";
+  for (var i = 0; i < data.length; i++) {
+    if (data[i] != 0) {
+      strtable +=
+        '  <tr>     <td class="kiri">' +
+        nos[i] +
+        "</td>" +
+        '     <td class="kiri">' +
+        xaxis[i]  +
+        "</td>" +
+        '     <td class="kanan">' +
+        rupiah(data[i]) +
+        "</td></tr>";
+    }
+  }
+
+  strtable +=
+    "  </tbody>" +
+    "<tfoot>" +
+    "<tr>" +
+    '  <th scope="row">Totals</th>' +
+    '  <td class="kanan"></td>' +
+    '  <td class="kanan">' +
+    rupiah(totaljual) +
+    "</td>" +
+    "</tr>" +
+    "</tfoot>" +
+    "                          </table>";
+
+  myTableDiv.innerHTML = strtable;
+}
+
+
+
+function addTable_reservasi_tahun(xaxis, data,nos, totaljual) {
+  var myTableDiv = document.getElementById("table1");
+  var strtable = "";
+  // console.log('data:'+data.length);
+  strtable =
+    '<table width="100%" class="mytable">' +
+    " <thead>" +
+    " <tr>" +
+    '     <th class="kiri">No.</th>' +
+    '     <th class="kiri">Bulan</th>' +
+    '     <th class="kanan">Total</th>' +
+    " </tr>" +
+    " </thead>" +
+    " <tbody>";
+  for (var i = 0; i < data.length; i++) {
+    if (data[i] != 0) {
+      strtable +=
+        '  <tr>     <td class="kiri">' +
+        nos[i] +
+        "</td>" +
+        '     <td class="kiri">' +
+        xaxis[i]  +
+        "</td>" +
+        '     <td class="kanan">' +
+        rupiah(data[i]) +
+        "</td></tr>";
+    }
+  }
+
+  strtable +=
+    "  </tbody>" +
+    "<tfoot>" +
+    "<tr>" +
+    '  <th scope="row">Totals</th>' +
+    '  <td class="kanan"></td>' +
+    '  <td class="kanan">' +
+    rupiah(totaljual) +
+    "</td>" +
+    "</tr>" +
+    "</tfoot>" +
+    "                          </table>";
+
+  myTableDiv.innerHTML = strtable;
+}
+
+
+// addTable_cfd_bulan(xaxis, data,nos, totaljual);
+
+function addTable_cfd_bulan(xaxis, data,nos, totaljual) {
+  var myTableDiv = document.getElementById("table2");
+  var strtable = "";
+  // console.log('data:'+data.length);
+  strtable =
+    '<table width="100%" class="mytable">' +
+    " <thead>" +
+    " <tr>" +
+    '     <th class="kiri">No.</th>' +
+    '     <th class="kiri">Tanggal</th>' +
+    '     <th class="kanan">Total</th>' +
+    " </tr>" +
+    " </thead>" +
+    " <tbody>";
+  for (var i = 0; i < data.length; i++) {
+    if (data[i] != 0) {
+      strtable +=
+        '  <tr>     <td class="kiri">' +
+        nos[i] +
+        "</td>" +
+        '     <td class="kiri">' +
+        xaxis[i]  +
+        "</td>" +
+        '     <td class="kanan">' +
+        rupiah(data[i]) +
+        "</td></tr>";
+    }
+  }
+
+  strtable +=
+    "  </tbody>" +
+    "<tfoot>" +
+    "<tr>" +
+    '  <th scope="row">Totals</th>' +
+    '  <td class="kanan"></td>' +
+    '  <td class="kanan">' +
+    rupiah(totaljual) +
+    "</td>" +
+    "</tr>" +
+    "</tfoot>" +
+    "                          </table>";
+
+  myTableDiv.innerHTML = strtable;
+}
+
+
+
+function addTable_reservasi_bulan(xaxis, data,nos, totaljual) {
+  var myTableDiv = document.getElementById("table2");
+  var strtable = "";
+  // console.log('data:'+data.length);
+  strtable =
+    '<table width="100%" class="mytable">' +
+    " <thead>" +
+    " <tr>" +
+    '     <th class="kiri">No.</th>' +
+    '     <th class="kiri">Tanggal</th>' +
+    '     <th class="kanan">Total</th>' +
+    " </tr>" +
+    " </thead>" +
+    " <tbody>";
+  for (var i = 0; i < data.length; i++) {
+    if (data[i] != 0) {
+      strtable +=
+        '  <tr>     <td class="kiri">' +
+        nos[i] +
+        "</td>" +
+        '     <td class="kiri">' +
+        xaxis[i]  +
+        "</td>" +
+        '     <td class="kanan">' +
+        rupiah(data[i]) +
+        "</td></tr>";
+    }
+  }
+
+  strtable +=
+    "  </tbody>" +
+    "<tfoot>" +
+    "<tr>" +
+    '  <th scope="row">Totals</th>' +
+    '  <td class="kanan"></td>' +
+    '  <td class="kanan">' +
+    rupiah(totaljual) +
+    "</td>" +
+    "</tr>" +
+    "</tfoot>" +
+    "                          </table>";
+
+  myTableDiv.innerHTML = strtable;
+}
